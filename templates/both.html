@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sequence Prediction</title>
+    <style>
+        /* Styles for both sections */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for the prediction results section */
+        #predictionResults {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter a Sequence</h1>
+        <form action="/predict" method="post" id="sequenceForm">
+            <input type="text" name="sequence" id="sequenceInput" placeholder="Enter sequence here" required>
+            <br>
+            <button type="submit" onclick="predictSequence()">Predict</button>
+        </form>
+
+        <h1 id="predictionTitle" style="display: none;">Prediction Results</h1>
+        <div id="predictionResults" style="display: none;"></div>
+
+        <script>
+            function predictSequence() {
+                // Sample prediction array received from the model
+                var prediction = [84.23030219, 42.96032167, 51.64932966, 2.37548143, 96.60747315, 439.39580096];
+
+                // Corresponding labels
+                var labels = ['DH', 'GFD', 'GNPS', 'GWPS', 'PH', 'GY'];
+
+                // Hide input form and display prediction results
+                document.getElementById('sequenceForm').style.display = 'none';
+                document.getElementById('predictionTitle').style.display = 'block';
+                var predictionDiv = document.getElementById('predictionResults');
+                predictionDiv.style.display = 'block';
+
+                // Create and append formatted predictions
+                for (var i = 0; i < labels.length; i++) {
+                    var p = document.createElement('p');
+                    p.textContent = labels[i] + ': ' + prediction[i];
+                    predictionDiv.appendChild(p);
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
